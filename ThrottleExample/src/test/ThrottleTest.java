@@ -14,7 +14,7 @@ public class ThrottleTest
 	@Before
 	public void createThrottleObject()
 	{
-		throttle = new Throttle();
+		throttle = new Throttle(6);
 	}
 	
 	@Test

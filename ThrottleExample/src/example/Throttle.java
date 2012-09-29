@@ -2,13 +2,21 @@ package example;
 
 public class Throttle 
 {
-	private static final int MAX_THROTTLE_POSITION = 6;
+	private static int MAX_THROTTLE_POSITION;
 	private static final int MIN_THROTTLE_POSITION = 0;
 	
 	private int position;
 	
-	public Throttle()
+	public Throttle(int maxThrottlePosition)
 	{
+		if(maxThrottlePosition > 0)
+		{
+			this.MAX_THROTTLE_POSITION = maxThrottlePosition;
+		}
+		else
+		{
+			this.MAX_THROTTLE_POSITION = 6;
+		}
 		shutOff();
 	}
 	

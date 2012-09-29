@@ -7,9 +7,12 @@ public class Main
 	public static void main(String[] args) 
 	{
 		Scanner scanner = new Scanner( System.in );
-		Throttle throttle = new Throttle();
 		
-		System.out.println("Please enter a number from 0 to 6: ");
+		System.out.println("Please enter the max number of throttle positions: ");
+		int maxPositions = scanner.nextInt();
+		Throttle throttle = new Throttle(maxPositions);
+		
+		System.out.println(String.format("Please enter a number from 0 to %d: ", maxPositions));
 		int userInput = scanner.nextInt();
 		System.out.println();
 		
