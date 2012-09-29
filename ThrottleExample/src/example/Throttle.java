@@ -1,3 +1,4 @@
+package example;
 
 public class Throttle 
 {
@@ -8,7 +9,12 @@ public class Throttle
 	
 	public Throttle()
 	{
-		this.position = 0;
+		shutOff();
+	}
+	
+	public void shutOff()
+	{
+		position = 0;
 	}
 	
 	public void shift(int amountToShiftBy)
@@ -32,14 +38,12 @@ public class Throttle
 	
 	public final boolean isOn()
 	{
-		if(position == 0)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return (flow() > 0);
+	}
+	
+	public final boolean isFlowMoreThanHalf()
+	{
+		return (flow() > 0.5);
 	}
 	
 }
