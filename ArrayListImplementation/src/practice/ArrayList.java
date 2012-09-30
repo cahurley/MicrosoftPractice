@@ -1,6 +1,9 @@
 package practice;
 
-public class ArrayList<E> 
+import java.util.Arrays;
+import java.util.Iterator;
+
+public class ArrayList<E> implements Iterable<E>
 {
 	private int MAX_CAPACITY;
 	private int currentSize;
@@ -98,5 +101,12 @@ public class ArrayList<E>
 	{
 		return this.MAX_CAPACITY;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Iterator<E> iterator() 
+	{
+		return (Iterator<E>) Arrays.asList(itemsInArray).iterator();
+	}
+
 }
