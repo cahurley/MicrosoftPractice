@@ -100,6 +100,31 @@ public class LinkedList<E>
 		currentSize++;
 	}
 	
+	public E get(int index)
+	{
+		if (index < 0 || index >= size())
+		{
+			throw new IllegalArgumentException("Cannot retrieve item at that index");
+		}
+		
+		Node<E> node = headNode;
+		if (index == 0)
+		{
+			return node.getData();
+		}
+		else
+		{
+			int i = 0;
+			while (i != index)
+			{
+				node = node.getNextNode();
+				i++;
+			}
+			
+			return node.getData();
+		}
+	}
+	
 	public void remove(int index)
 	{
 		if(index < 0 || index >= size())
@@ -122,14 +147,19 @@ public class LinkedList<E>
 		currentSize--;
 	}
 	
-	public Node<E> getFirst()
+	public E getFirst()
 	{
-		return this.headNode;
+		return this.headNode.getData();
 	}
 	
 	public int size()
 	{
 		return this.currentSize;
+	}
+	
+	private Node<E> getFirstNode()
+	{
+		return this.headNode;
 	}
 	
 	private class Node<E>

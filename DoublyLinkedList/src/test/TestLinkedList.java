@@ -32,18 +32,17 @@ public class TestLinkedList
 	public void testDefaultConstructor()
 	{
 		assertEquals(0, integerLinkedList.size());
-		assertEquals(null, integerLinkedList.getFirst());
 	}
 	
 	@Test
 	public void testConstructor()
 	{
 		assertEquals(5, stringLinkedList.size());		
-		assertEquals("Item 1", stringLinkedList.getFirst().getData());
-		assertEquals("Item 2", stringLinkedList.getFirst().getNextNode().getData());
-		assertEquals("Item 3", stringLinkedList.getFirst().getNextNode().getNextNode().getData());
-		assertEquals("Item 4", stringLinkedList.getFirst().getNextNode().getNextNode().getNextNode().getData());
-		assertEquals("Item 5", stringLinkedList.getFirst().getNextNode().getNextNode().getNextNode().getNextNode().getData());
+		assertEquals("Item 1", stringLinkedList.getFirst());
+		assertEquals("Item 2", stringLinkedList.get(1));
+		assertEquals("Item 3", stringLinkedList.get(2));
+		assertEquals("Item 4", stringLinkedList.get(3));
+		assertEquals("Item 5", stringLinkedList.get(4));
 	}
 	
 	@Test
@@ -54,11 +53,11 @@ public class TestLinkedList
 		integerLinkedList.add(8);
 		
 		integerLinkedList.add(0, 7);
-		assertEquals(7, integerLinkedList.getFirst().getData(), 0);
-		assertEquals(5, integerLinkedList.getFirst().getNextNode().getData(), 0);
+		assertEquals(7, integerLinkedList.getFirst(), 0);
+		assertEquals(5, integerLinkedList.get(1), 0);
 		
 		integerLinkedList.add(3, 10);
-		assertEquals(10, integerLinkedList.getFirst().getNextNode().getNextNode().getNextNode().getData(), 0);
+		assertEquals(10, integerLinkedList.get(3), 0);
 		
 	}
 	
@@ -67,11 +66,11 @@ public class TestLinkedList
 	{
 		integerLinkedList.add(5);
 		assertEquals(1, integerLinkedList.size());
-		assertEquals(5, integerLinkedList.getFirst().getData(), 0);
+		assertEquals(5, integerLinkedList.getFirst(), 0);
 		
 		integerLinkedList.add(2);
 		assertEquals(2, integerLinkedList.size());
-		assertEquals(2, integerLinkedList.getFirst().getNextNode().getData(), 0);
+		assertEquals(2, integerLinkedList.get(1), 0);
 	}
 	
 	@Test
@@ -100,8 +99,8 @@ public class TestLinkedList
 		
 		stringLinkedList.addAll(1, stringList);
 		assertEquals(7, stringLinkedList.size());
-		assertEquals("Random Item 1", stringLinkedList.getFirst().getNextNode().getData());
-		assertEquals("Random Item 2", stringLinkedList.getFirst().getNextNode().getNextNode().getData());
+		assertEquals("Random Item 1", stringLinkedList.get(1));
+		assertEquals("Random Item 2", stringLinkedList.get(2));
 	}
 	
 	@Test
@@ -114,8 +113,8 @@ public class TestLinkedList
 		
 		integerLinkedList.addFirst(20);
 		assertEquals(4, integerLinkedList.size());
-		assertEquals(20, integerLinkedList.getFirst().getData(), 0);
-		assertEquals(5, integerLinkedList.getFirst().getNextNode().getData(), 0);
+		assertEquals(20, integerLinkedList.getFirst(), 0);
+		assertEquals(5, integerLinkedList.get(1), 0);
 	}
 	
 	@Test
@@ -127,7 +126,7 @@ public class TestLinkedList
 		
 		integerLinkedList.addLast(15);
 		assertEquals(3, integerLinkedList.size());
-		assertEquals(15, integerLinkedList.getFirst().getNextNode().getNextNode().getData(), 0);
+		assertEquals(15, integerLinkedList.get(2), 0);
 	}
 	
 	@Test
@@ -137,13 +136,13 @@ public class TestLinkedList
 		
 		stringLinkedList.remove(1);
 		assertEquals(4, stringLinkedList.size());
-		assertEquals("Item 3", stringLinkedList.getFirst().getNextNode().getData());
+		assertEquals("Item 3", stringLinkedList.get(1));
 	}
 	
 	@Test
 	public void testGetFirst()
 	{
-		assertEquals(null, integerLinkedList.getFirst());
+		assertEquals("Item 1", stringLinkedList.getFirst());
 	}
 	
 	@Test
