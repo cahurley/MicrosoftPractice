@@ -131,6 +131,16 @@ public class TestLinkedList
 	}
 	
 	@Test
+	public void testRemove()
+	{
+		assertEquals(5, stringLinkedList.size());
+		
+		stringLinkedList.remove(1);
+		assertEquals(4, stringLinkedList.size());
+		assertEquals("Item 3", stringLinkedList.getFirst().getNextNode().getData());
+	}
+	
+	@Test
 	public void testGetFirst()
 	{
 		assertEquals(null, integerLinkedList.getFirst());

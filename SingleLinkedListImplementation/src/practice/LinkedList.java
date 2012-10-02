@@ -100,9 +100,26 @@ public class LinkedList<E>
 		currentSize++;
 	}
 	
-	public void clear()
+	public void remove(int index)
 	{
+		if(index < 0 || index >= size())
+		{
+			throw new IllegalArgumentException("Cannot remove item at that index");
+		}
 		
+		Node<E> node = headNode;
+		Node<E> previousNode = null;
+		int i = 0;
+		while (i != index)
+		{
+			previousNode = node;
+			node = node.getNextNode();
+			i++;
+		}
+		
+		previousNode.setNextNode(node.getNextNode());
+		node = null;
+		currentSize--;
 	}
 	
 	public Node<E> getFirst()
