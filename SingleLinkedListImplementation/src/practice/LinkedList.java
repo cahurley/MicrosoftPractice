@@ -13,10 +13,7 @@ public class LinkedList<E>
 	
 	public LinkedList(Iterable<E> linkedListObjects)
 	{
-		for (E item : linkedListObjects)
-		{
-			add(item);
-		}
+		addAll(linkedListObjects);
 	}
 	
 	public void add(int index, E element)
@@ -26,17 +23,16 @@ public class LinkedList<E>
 			throw new IllegalArgumentException("Cannot add element at that index");
 		}
 		
-		Node<E> node = new Node<E>(element, null);
-		
-		Node<E> currentNode = headNode;
-		Node<E> previousNode = null;
 		if (index == 0)
 		{
-			node.setNextNode(currentNode);
-			headNode = node;
+			addFirst(element);
 		}
 		else
 		{
+			Node<E> node = new Node<E>(element, null);
+			Node<E> currentNode = headNode;
+			Node<E> previousNode = null;
+			
 			int i = 0;
 			while (i != index && currentNode.getNextNode() != null)
 			{
@@ -47,9 +43,8 @@ public class LinkedList<E>
 			
 			node.setNextNode(currentNode.getNextNode());
 			previousNode.setNextNode(node);
+			currentSize++;
 		}
-		
-		currentSize++;
 	}
 	
 	public void add(E element)
@@ -58,19 +53,56 @@ public class LinkedList<E>
 		if (headNode == null && currentSize == 0)
 		{
 			headNode = node;
+			currentSize++;
 		}
 		else
 		{
-			Node<E> tempNode = headNode;
-			while (tempNode.getNextNode() != null)
-			{
-				tempNode = tempNode.getNextNode();
-			}
-			
-			tempNode.setNextNode(node);
+			addLast(element);
+		}
+	}
+	
+	public void addAll(Iterable<E> itemsToAdd)
+	{
+		for (E item : itemsToAdd)
+		{
+			add(item);
+		}
+	}
+	
+	public void addAll(int index, Iterable<E> itemsToAdd)
+	{
+		for (E item : itemsToAdd)
+		{
+			add(index++, item);
+		}
+	}
+	
+	public void addFirst(E element)
+	{
+		Node<E> node = new Node<E>(element, null);
+		
+		node.setNextNode(headNode);
+		headNode = node;
+		currentSize++;
+	}
+	
+	public void addLast(E element)
+	{
+		Node<E> node = new Node<E>(element, null);
+		
+		Node<E> tempNode = headNode;
+		while (tempNode.getNextNode() != null)
+		{
+			tempNode = tempNode.getNextNode();
 		}
 		
+		tempNode.setNextNode(node);
 		currentSize++;
+	}
+	
+	public void clear()
+	{
+		
 	}
 	
 	public Node<E> getFirst()

@@ -1,6 +1,6 @@
 package practice;
 
-public class Node<E> 
+public class Node<E>
 {
 	E data;
 	Node<E> nextNode;
@@ -31,5 +31,31 @@ public class Node<E>
 	public void setNextNode(Node<? extends E> nextNode)
 	{
 		this.nextNode = (Node<E>) nextNode;
+	}
+
+	@Override
+	public boolean equals(Object arg0) 
+	{
+		if(this == arg0)
+		{
+			return true;
+		}
+		
+		if(!(arg0 instanceof Node))
+		{
+			return false;
+		}
+		
+		@SuppressWarnings("unchecked")
+		Node<E> comparingObject = (Node<E>)arg0;
+		if(this.data == comparingObject.data)
+		{
+			if(this.nextNode == comparingObject.nextNode)
+			{
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }
