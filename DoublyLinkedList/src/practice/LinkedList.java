@@ -3,11 +3,13 @@ package practice;
 public class LinkedList<E> 
 {	
 	private Node<E> headNode;
+	private Node<E> tailNode;
 	private int currentSize;
 	
 	public LinkedList()
 	{
 		this.headNode = null;
+		this.tailNode = null;
 		this.currentSize = 0;
 	}
 	
@@ -29,31 +31,31 @@ public class LinkedList<E>
 		}
 		else
 		{
-			Node<E> node = new Node<E>(element, null);
+			Node<E> node = new Node<E>(element, null, null);
 			Node<E> currentNode = headNode;
-			Node<E> previousNode = null;
 			
 			int i = 0;
 			while (i != index && currentNode.getNextNode() != null)
 			{
-				previousNode = currentNode;
 				currentNode = currentNode.getNextNode();
 				i++;
 			}
 			
-			node.setNextNode(currentNode.getNextNode());
-			previousNode.setNextNode(node);
+			node.setPreviousNode(currentNode.getPreviousNode());
+			node.getPreviousNode().setNextNode(node);
+			
+			node.setNextNode(currentNode);
+			node.getNextNode().setPreviousNode(node);
+			
 			currentSize++;
 		}
 	}
 	
 	public void add(E element)
-	{		
-		Node<E> node = new Node<E>(element, null);
+	{
 		if (headNode == null && currentSize == 0)
 		{
-			headNode = node;
-			currentSize++;
+			addFirst(element);
 		}
 		else
 		{
@@ -79,24 +81,39 @@ public class LinkedList<E>
 	
 	public void addFirst(E element)
 	{
-		Node<E> node = new Node<E>(element, null);
+		Node<E> node = new Node<E>(element, null, null);
 		
-		node.setNextNode(headNode);
-		headNode = node;
+		if (headNode != null)
+		{
+			node.setNextNode(headNode);
+			node.getNextNode().setPreviousNode(node);
+			headNode = node;
+		}
+		else
+		{
+			headNode = node;
+			tailNode = node;
+		}
+		
 		currentSize++;
 	}
 	
 	public void addLast(E element)
 	{
-		Node<E> node = new Node<E>(element, null);
+		Node<E> node = new Node<E>(element, null, null);
 		
-		Node<E> tempNode = headNode;
-		while (tempNode.getNextNode() != null)
+		if (tailNode != null)
 		{
-			tempNode = tempNode.getNextNode();
+			tailNode.setNextNode(node);
+			node.setPreviousNode(tailNode);
+			tailNode = node;
+		}
+		else
+		{
+			headNode = node;
+			tailNode = node;
 		}
 		
-		tempNode.setNextNode(node);
 		currentSize++;
 	}
 	
@@ -107,22 +124,41 @@ public class LinkedList<E>
 			throw new IllegalArgumentException("Cannot retrieve item at that index");
 		}
 		
-		Node<E> node = headNode;
-		if (index == 0)
+		Node<E> node;
+		if (index > currentSize/2)
 		{
-			return node.getData();
+			node = tailNode;
+			
+			int i = currentSize - 1;
+			while (i != index)
+			{
+				node = node.getPreviousNode();
+				i--;
+			}
 		}
 		else
 		{
+			node = headNode;
+			
 			int i = 0;
 			while (i != index)
 			{
 				node = node.getNextNode();
 				i++;
 			}
-			
-			return node.getData();
 		}
+		
+		return node.getData();
+	}
+	
+	public E getFirst()
+	{
+		return this.headNode.getData();
+	}
+	
+	public E getLast()
+	{
+		return this.tailNode.getData();
 	}
 	
 	public void remove(int index)
@@ -147,11 +183,6 @@ public class LinkedList<E>
 		currentSize--;
 	}
 	
-	public E getFirst()
-	{
-		return this.headNode.getData();
-	}
-	
 	public int size()
 	{
 		return this.currentSize;
@@ -162,16 +193,23 @@ public class LinkedList<E>
 		return this.headNode;
 	}
 	
+	private Node<E> getLastNode()
+	{
+		return this.tailNode;
+	}
+	
 	private class Node<E>
 	{
 		E data;
+		Node<E> previousNode;
 		Node<E> nextNode;
 		
 		@SuppressWarnings("unchecked")
-		public Node(E data, Node<? extends E> nextNode)
+		public Node(E data, Node<? extends E> previousNode, Node<? extends E> nextNode)
 		{
 			this.data = data;
-			this.nextNode = (Node<E>) nextNode;
+			this.previousNode = (Node<E>)previousNode;
+			this.nextNode = (Node<E>)nextNode;
 		}
 
 		public E getData()
@@ -184,15 +222,26 @@ public class LinkedList<E>
 			this.data = data;
 		}
 		
+		public Node<E> getPreviousNode()
+		{
+			return this.previousNode;
+		}
+		
 		public Node<E> getNextNode()
 		{
 			return this.nextNode;
 		}
 		
 		@SuppressWarnings("unchecked")
+		public void setPreviousNode(Node<? extends E> previousNode)
+		{
+			this.previousNode = (Node<E>)previousNode;
+		}
+		
+		@SuppressWarnings("unchecked")
 		public void setNextNode(Node<? extends E> nextNode)
 		{
-			this.nextNode = (Node<E>) nextNode;
+			this.nextNode = (Node<E>)nextNode;
 		}
 		
 	}

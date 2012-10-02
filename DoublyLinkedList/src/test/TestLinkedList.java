@@ -140,6 +140,16 @@ public class TestLinkedList
 	}
 	
 	@Test
+	public void testGetAtIndex()
+	{
+		assertEquals("Item 1", stringLinkedList.get(0));
+		assertEquals("Item 2", stringLinkedList.get(1));
+		assertEquals("Item 3", stringLinkedList.get(2));
+		assertEquals("Item 4", stringLinkedList.get(3));
+		assertEquals("Item 5", stringLinkedList.get(4));
+	}
+	
+	@Test
 	public void testGetFirst()
 	{
 		assertEquals("Item 1", stringLinkedList.getFirst());
