@@ -48,6 +48,20 @@ public class ArrayList<E> implements Iterable<E>
 	}
 	
 	@SuppressWarnings("unchecked")
+	public boolean contains(E item)
+	{
+		for (Object element : itemsInArray)
+		{
+			if (((E)element).equals(item))
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public E get(int index)
 	{
 		if (index < 0 || index > size())
