@@ -13,6 +13,31 @@ public class Node<E>
 		this.rightChild = rightChild;
 	}
 	
+	public void treeClear(Node<E> rootNode)
+	{
+		if (rootNode != null)
+		{
+			treeClear(rootNode.getLeftChild());
+			treeClear(rootNode.getRightChild());
+			rootNode = null;
+		}
+	}
+	
+	public Node<E> treeCopy(Node<E> rootNode)
+	{
+		if (rootNode == null)
+		{
+			return null;
+		}
+		else
+		{
+			Node<E> leftNode = treeCopy(rootNode.getLeftChild());
+			Node<E> rightNode = treeCopy(rootNode.getRightChild());
+			
+			return new Node<E>(rootNode.getData(), leftNode, rightNode);
+		}
+	}
+	
 	public boolean isLeaf()
 	{
 		return (leftChild == null && rightChild == null);
